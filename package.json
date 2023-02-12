@@ -1,0 +1,26 @@
+{
+  "name": "www-map",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "autoprefixer": "^9.8.6",
+    "daterangepicker": "^3.1.0",
+    "jquery": "^3.5.1",
+    "js-datepicker": "^5.18.0",
+    "knockout": "^3.5.1",
+    "luxon": "^1.26.0",
+    "mysql": "^2.18.1",
+    "ol": "^6.12.0",
+    "parcel": "^1.12.4",
+    "parcel-bundler": "^1.12.4",
+    "postcss": "^8.2.6",
+    "stream-http": "^3.1.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel index.html",
+    "build": "NODE_ENV=development parcel build main.html --public-url /dist --no-minify"
+  },
+  "author": ""
+}

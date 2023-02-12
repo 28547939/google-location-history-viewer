@@ -1,0 +1,227 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Using Parcel with OpenLayers</title>
+    <style>
+      #map {
+        width: 100%;
+        height: 600px;
+				float: left;
+      }
+
+      .datatable_selected {
+      	background-color: #ddf;
+      }
+
+	  #left { 
+	  	width: 40%;
+		float: left;
+		}
+
+
+      #control {
+				width: 100%;
+				height: 175px;
+				float: left;
+				border: 1px solid black;
+      }
+
+      #history {
+				width: 100%;
+				float: left;
+				border: 1px solid black;
+				height: 200px;
+				overflow-y: scroll;
+      }
+
+	  #control table td {
+		border: 1px solid #eee;
+		padding: 3px;
+	  }
+
+	  #control table td.label {
+		font-weight: bold;
+	  }
+
+	  #wrapper {
+		margin: 0px;
+		padding: 0px;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	  }
+
+	  div#top {
+		width: 100%;
+		}
+
+	  div#data {
+		height: 100%;
+		overflow-y: scroll;
+		float: right;
+		width: 60%;
+		clear: none;
+	  }
+
+	  div#data table td {
+			border: 1px solid #eee;
+			font-family: 'Courier New';
+			padding: 2px;
+			font-size: 10px;
+	  }
+
+	  div#data table tr.header td {
+			font-weight: bold;
+			font-size: 14px;
+	  }
+
+	  html, body {
+		margin: 0px;
+		padding: 0px;
+		overflow: hidden;
+		height: 100%;
+	  }
+    </style>
+	<link rel="stylesheet" href="./node_modules/daterangepicker/daterangepicker.css" />
+	<link rel="stylesheet" href="./node_modules/js-datepicker/dist/datepicker.min.css" />
+  </head>
+  <body>
+  	<div id='wrapper'>
+		<div id='left'>
+					<div id="map"></div>
+
+
+					<div id='control'>
+						<table>
+							<tr>
+								<td class='label'>
+									Initialize date range 
+								</td>
+								<td>
+									<input type="text" class="yearpicker" value="">
+								</td>
+								<td>
+									Use the year/month selection function here to more conveniently select the date range
+								</td>
+							</tr>
+
+							<tr>
+								<td class='label'>
+									Date range
+								</td>
+								<td>
+									<input type="text" class="daterange" value="" />
+								</td>
+								<td>
+									Actual date range for your results is selected here
+								</td>
+							</tr>
+
+							<tr>
+								<td class='label'>
+									Mode	
+								</td>
+								<td>
+									<select id='mode'>
+										<!--	<option value="test">test</option> -->
+									</select>
+								</td>
+								<td>
+									Currently unused
+								</td>
+							</tr>
+
+							<tr>
+								<td class='label'>
+									Time zone	
+								</td>
+								<td>
+									<select id='timezone'>
+										<option value="UTC-5">-8</option>
+										<option value="UTC-5">-7</option>
+										<option value="UTC-5">-6</option>
+										<option value="UTC-5" selected>-5</option>
+										<option value="UTC-4">-4</option>
+										<option value="UTC">UTC</option>
+										<option value="UTC+1">+1</option>
+										<option value="UTC+1">+2</option>
+										<option value="UTC+1">+3</option>
+										<option value="UTC+7">+7</option>
+										<option value="UTC+8">+8</option>
+										<option value="UTC+9">+9</option>
+										<option value="UTC+9">+12</option>
+										<option value="UTC+9">+13</option>
+									</select>
+								</td>
+								<td>
+									Timezone to view results in
+								</td>
+							</tr>
+
+							<tr>
+								<td colspan='3'>
+									<input type='button' name='fetch' id='fetch' value='Fetch' />
+								</td>
+							</tr>
+
+						</table>
+					</div>
+					<div id='history'>
+						<table>
+						<tbody>
+						<!-- ko foreach: history -->
+							<tr data-bind='click: updateDateRange'>
+								<td data-bind='text: range_start'></td>
+								<td data-bind='text: range_end'></td>
+							</tr>
+						<!-- /ko -->
+						</tbody>
+						</table>
+
+					</div>
+				</div>
+
+					<div id='data'>
+						<table>
+							<tr class='header'>
+								<td>i</td>
+								<td>Start time</td>
+								<td>End time</td>
+								<td>Place</td>
+								<td>activityType</td>
+								<td>Address</td>
+								<td>Distance</td>
+								<td>Duration</td>
+								<td>Confidence</td>
+							</tr>
+							<!-- ko foreach: data_table -->
+							<tr data-bind='attr: 
+								{  	id: uniq_id,
+									class: 
+									((uniq_id == $root.selected())
+										? "datatable_selected" : "")
+										},
+										click: changeSelectedVisit'>
+								<td data-bind="text: i"></td>
+								<!--
+								<td data-bind="text: uniq_id"></td>
+								<td data-bind="text: $root.selected"></td>
+								-->
+								<td data-bind="text: start_time"></td>
+								<td data-bind="text: end_time"></td>
+								<td data-bind="text: name"></td>
+								<td data-bind="text: activityType"></td>
+								<td data-bind="text: address"></td>
+								<td data-bind="text: distance_str"></td>
+								<td data-bind="text: duration"></td>
+								<td data-bind="text: confidence"></td>
+							</tr>
+							<!-- /ko -->
+						</table>
+					</div>
+					<script src="./index.js"></script>
+	</div>
+  </body>
+</html>
