@@ -1,0 +1,4 @@
+host: 10.0.0.1
+user: google_location_data
+passwd: '12345'
+db: google_location_data
