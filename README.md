@@ -1,6 +1,10 @@
 # google-location-history-viewer
 
 A self-hosted web application providing a basic, minimal view of one's Google location history, as exported using Google's Takeout mechanism, using the OpenLayers API. 
+Unlike some others, this tool does not summarize or perform any analysis on the data; it just displays on the map the actual points and segments of travel between points, 
+taken directly from the location history data without any further modification. The user selects a date range, and the points/segments lying in that date range are rendered 
+on the map in addition to being displayed on a table. The table includes some of the additional information that's included in Google's location history data, including the
+time spent on the point/segment, the inferred name and/or address of points, inferred form of travel, etc.
 
 SQL table schemas are provided (for MySQL), and `history-sql.py` is used to extract the data from the Takeout into a MySQL database.
 Users can adapt this without too much difficulty to other databases.
