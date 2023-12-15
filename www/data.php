@@ -3,7 +3,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-require_once 'vendor/autoload.php';
+# vendor/ is in the $DOCROOT directory, but data.php (this file) is in $DOCROOT/www
+require_once '../vendor/autoload.php';
 
 
 
