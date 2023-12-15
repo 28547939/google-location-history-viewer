@@ -1,0 +1,13 @@
+**/*.sw[op]
+db.yml
+package-lock.json
+composer.lock
+composer.phar
+data
+history-loader/dist
+history-loader/build
+history-loader/loader.spec
+**/*.egg-info
+www/dist/*
+vendor/*
+node_modules
