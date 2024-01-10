@@ -22,29 +22,24 @@ I assume that Google's own location history viewer provides a much better, riche
 So this software is mainly useful for those who want to delete Google's record of their location history, for whatever reason, while still being able to efficiently refer to past location history when needed.
 
 
-SQL table schemas are provided (for MySQL), and `history-sql.py` is used to extract the data from the Takeout into a MySQL database.
-Currently, `history-sql.py` depends on the MySQLdb Python module.
-
-TODO mention
+SQL table schemas are provided (for MySQL), and `loader.py` is used to extract the data from the Takeout into a MySQL database.
+Currently, `loader.py` depends on the MySQL connector Python module.
 
 ### TODO
 
-Re-write `data.php` in Python or eliminate ZF3 dependency
-
-
+Eliminate ZF3 dependency from `data.php` 
 
 ## Quick-start
 
 ### Overview & deployment
 
-- Webserver running PHP; document root: `www`
+- Webserver with PHP; document root: `www`
 - `www/data.php` receives AJAX requests and retreives location data from the database
 - `www/index.php` just `include`s the frontend in `www/dist` that has been compiled with `npm` (see below)
 - `index.js` and `main.html` are compiled together using something like `npm run build` (see `package.json`), which also deploys them to `www/dist`.
-    JS dependencies need to be installed first (see below)
+    JS dependencies need to be installed first 
 - Database configuration file needs to be called `db.yml`, one level up from your document root (i.e. where `db.yml.sample` currently is), since this is
     hard-coded in `data.php`
-
 
 `index.js` uses the OpenLayers API to draw points and lines on the map; it also uses Knockout.js to provide the "data layer", handling the underlying location data that's retrieved via AJAX, 
 which ends up in both the map and the `<table>` that shows the history in table form. More information about OpenLayers: [https://openlayers.org/](https://openlayers.org/).
@@ -52,30 +47,26 @@ which ends up in both the map and the `<table>` that shows the history in table 
 ### Database setup; loading location data
 
 Obtain location data using Google Takeout. Based on the Takeout format as of late 2023, the Takeout will contain a directory called `Semantic Location History`; `$DATA_DIR` can be set to its path.
-Use `history-sql.py` to load the data. The program will process all JSON under the given data-dir.
+Use `loader.py` to load the data. The program will recursively process all JSON under the given `$DATA_DIR`:
 
-./history-sql.py --db-config db.yml --data-dir $DATA_DIR
+./history-loader/src/history-loader/loader.py --db-config db.yml --data-dir $DATA_DIR
 
 Note: one of the table columns in the provided SQL (`tables.sql`) is called `source_path`. When data is loaded into the database, the path of the provided data directory is 
-stored in `source_path`. This makes it easier to test the loading of location data, since each loaded dataset can be located using the `source_path` if needed.
+stored in `source_path`. This makes it easier to test the loading of location data, since each loaded dataset can be located (and deleted) using the `source_path` if needed.
 But this schema uses an auto-incremented, numeric unique ID field, so loading operations are not idempotent.
 
 ### PHP dependencies & setup
 
 The PHP web backend depends on Zend Framework 3, which is no longer maintained (now known as Laminas). 
-This might cause `composer` to fail to install dependencies. It may be necessary to manually download 
+This might cause `composer` to fail to install dependencies. It may be necessary to manually download ZF3.
 
 ### JavaScript/`npm` dependencies
 
-
-- `knockout.js`
-- `js-datepicker`
-- `daterangepicker` ([https://www.daterangepicker.com/](https://www.daterangepicker.com/))
 - `jQuery`
-- 
-
-
-
+- `knockout.js` ([https://knockoutjs.com/](https://knockoutjs.com/))
+- `js-datepicker` ([https://github.com/qodesmith/datepicker#readme](https://github.com/qodesmith/datepicker#readme))
+- `daterangepicker` ([https://www.daterangepicker.com/](https://www.daterangepicker.com/))
+- OpenLayers [https://openlayers.org/](https://openlayers.org/)
 
 ## Example screenshot
 
