@@ -30,9 +30,9 @@ CREATE TABLE `placevisit` (
   `placeId` varchar(64) DEFAULT NULL,
   `address` varchar(1024) DEFAULT NULL,
   `name` varchar(1024) DEFAULT NULL,
-  `start_time` datetime NOT NULL,
-  `end_time` datetime NOT NULL,
-  `confidence` varchar(20) NOT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `confidence` varchar(20) DEFAULT NULL,
   `parent` int(11) DEFAULT NULL,
   `source_path` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
