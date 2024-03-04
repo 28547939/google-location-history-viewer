@@ -8,13 +8,8 @@ import mysql.connector
 import argparse
 
 import re
-import pdb
-import itertools
 import os
 import os.path
-import urllib
-import urllib.parse
-import subprocess
 from datetime import datetime
 from dateutil import parser
 import dateutil
