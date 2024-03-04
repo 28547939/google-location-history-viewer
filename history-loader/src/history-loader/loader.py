@@ -210,13 +210,16 @@ class loader():
                                 for x in data['childVisits']:
                                     self.insert_placevisit(x, parent_id)
 
-        print(dict(itertools.filterfalse((lambda x: not x[0] in ['activitysegment_count', 'waypoint_count', 'placevisit_count'
-        ]), vars(self).items())))
+        print(dict(filter(
+            (lambda x: x[0] in [
+                'activitysegment_count', 'waypoint_count', 'placevisit_count'
+            ]), vars(self).items())
+        ))
 
 
 def main():
     prs=argparse.ArgumentParser(
-        prog='',
+        prog='history-loader',
         description='load Google Takeout location history data into an SQL database',
     )
 

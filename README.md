@@ -46,14 +46,24 @@ which ends up in both the map and the `<table>` that shows the history in table 
 
 ### Database setup; loading location data
 
+Install Python dependencies (just `pyyaml`):
+
+```
+$ cd history-loader
+$ python -m pip install .
+```
+
 Obtain location data using Google Takeout. Based on the Takeout format as of late 2023, the Takeout will contain a directory called `Semantic Location History`; `$DATA_DIR` can be set to its path.
 Use `loader.py` to load the data. The program will recursively process all JSON under the given `$DATA_DIR`:
 
-./history-loader/src/history-loader/loader.py --db-config db.yml --data-dir $DATA_DIR
+```
+python ./src/history-loader/loader.py --db-config db.yml --data-dir $DATA_DIR
+```
 
 Note: one of the table columns in the provided SQL (`tables.sql`) is called `source_path`. When data is loaded into the database, the path of the provided data directory is 
 stored in `source_path`. This makes it easier to test the loading of location data, since each loaded dataset can be located (and deleted) using the `source_path` if needed.
 But this schema uses an auto-incremented, numeric unique ID field, so loading operations are not idempotent.
+
 
 ### PHP dependencies & setup
 
