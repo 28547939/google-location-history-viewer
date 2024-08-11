@@ -13,10 +13,10 @@ time spent on the point/segment, the inferred name and/or address of points, inf
 
 See screenshot below for an example of what everything should look like when it's working. Users are advised not to get their hopes up as far as aesthetics. Segments of travel between points are often inaccurate and/or imprecise, sometimes to the extent that it's difficult to figure out what's going on; this probably depends partly on one's GPS accuracy at that time. But the ordering of the events in time and the metadata present in the `placeVisit` structures should provide enough context.
 
-There is a great deal of less important metadata that this software does not extract from the Google Takeout; but much of that data could always be integrated in future work. 
+There is a great deal of less important metadata that this software does not extract from the Google Takeout, but much of that data could always be integrated in future work. 
 In the takeout data, each `placeVisit` entry contains alternative inferences of possible user location as well as more precise information about paths taken when moving, 
 neither of which can be incorporated because the data is specified in the form of unique Google-specific map-location identifiers (and latitude/longitude); 
-Google only provides metadata for the location candidate that is judged as having the highest probability.
+Google only provides metadata for the location candidate that is judged as having the highest likelihood.
 
 I assume that Google's own location history viewer provides a much better, richer interface to the location history data, including being able to incorporate metadata present in the Takeout that we have omitted.
 So this software is mainly useful for those who want to delete Google's record of their location history, for whatever reason, while still being able to efficiently refer to past location history when needed.
@@ -46,7 +46,7 @@ which ends up in both the map and the `<table>` that shows the history in table 
 
 ### Database setup; loading location data
 
-Install Python dependencies (just `pyyaml`):
+Install Python dependencies (just `pyyaml` and `mysql`):
 
 ```
 $ cd history-loader
