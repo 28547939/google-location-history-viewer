@@ -1,5 +1,42 @@
 # google-location-history-viewer
 
+## UPDATE 2025:
+
+As of 2024-2025, Google has moved location history/Timeline data directly to devices. Along with this has come a change in the format.
+
+Previously, location history stored in a Takeout archive contained metadata information about addresses and names of places as inferred from proprietary Google Maps databases.
+Object identifiers were also included in these records which allowed referencing the corresponding entities (places) in the Google Maps database.
+
+In the new format, it appears that only these Google Maps database identifiers are included. Actual metadata (place names, addresses) are not included.
+
+With the old Takeout format, the focus of the code in this repository was:
+- Store the meaningful data (such as latitude/longitude and metadata, not Google's identifiers) in a local SQL database
+- Make this information available in a minimal web interface, without any network connections to external resources (except OpenStreetMap, to depict the map)
+
+With the new format, this is not as useful because places names and addresses aren't available. Accessing this information now requires interacting with Google APIs.
+
+There is another project I found, [kurupted/google-maps-timeline-viewer](https://github.com/kurupted/google-maps-timeline-viewer/) which handles the new format directly
+in the browser (no local database) and fetches metadata from Google's APIs directly. 
+This also seems to require setting up a Google Cloud account and possibly having payment information on file; API calls made when browsing location history
+are associated with and billed against the Cloud account.
+In any case, this project also appears to have a much better / more polished interface.
+
+
+### Plan for future work
+
+It looks like such existing project(s) which display location history directly with Google are the best option moving forward for displaying location history
+data in the new on-device Timeline format. Those of us who were fortunate to have periodically downloaded location history Takeouts prior to Google's big change
+have essentially gotten metadata (place names, addresses) integrated with their on-disk location history "for free" (with the caveat that some of that metadata may have been stale when downloaded). 
+
+An alternative is to continue using just the latitude/longitude data in the new format, fetching metadata from some other source than Google (say, Open Street Map).
+Or, other applications which record location (like GPSLogger for Android) could presumably also work in tandem with OSM.
+
+This repository will probably eventually handle location history data recorded in a standard format from other applications. 
+
+Another compelling option would be to use the Google APIs to fetch and integrate the metadata that corresponds to the new-format location data, storing it in a local database all at once in a batch fashion.
+This would also allow for offline browsing of the history.
+
+# (existing readme prior to 2025)
 
 ## Description
 
